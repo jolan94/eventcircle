@@ -4,6 +4,8 @@ import 'package:eventcircle/screens/widgets/event_item.dart';
 import 'package:eventcircle/services/event_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 
 class HomeScreen extends StatelessWidget {
   final EventController eventController = Get.put(EventController());
@@ -12,17 +14,24 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Events'),
+        title: Text(
+          'Events',
+          style: GoogleFonts.inter(
+            color: const Color(0xFF120D26),
+            fontWeight: FontWeight.w500,
+            fontSize: 24,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {
               Get.toNamed('/search');
             },
-            icon: const Icon(Icons.search),
+            icon: const Icon(Iconsax.search_normal),
           ),
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.more),
+            icon: const Icon(Icons.more_vert),
           ),
         ],
       ),

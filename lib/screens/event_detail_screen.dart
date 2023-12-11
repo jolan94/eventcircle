@@ -2,6 +2,7 @@ import 'package:eventcircle/models/event.dart';
 import 'package:eventcircle/services/event_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class EventDetailScreen extends StatelessWidget {
@@ -10,11 +11,32 @@ class EventDetailScreen extends StatelessWidget {
     final int eventId = Get.arguments as int;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Event Details'),
+        title: Text(
+          'Event Details',
+          style: GoogleFonts.inter(
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 24,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.bookmark)),
+          IconButton.filledTonal(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.bookmark,
+              )),
         ],
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            )),
       ),
       body: FutureBuilder<Event>(
         future: EventService.fetchEventDetails(eventId),
@@ -43,19 +65,38 @@ class EventDetailScreen extends StatelessWidget {
       children: [
         Expanded(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(event.bannerImage),
+                ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    Colors.black
+                        .withOpacity(0.1), // Adjust the opacity as needed
+                    BlendMode.srcOver,
+                  ),
+                  child: Image.network(
+                    event.bannerImage,
+                    height: 250,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 const SizedBox(height: 16.0),
-                Text(
-                  event.title,
-                  style: const TextStyle(
-                      fontSize: 20.0, fontWeight: FontWeight.bold),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    event.title,
+                    style: GoogleFonts.inter(
+                      color: const Color(0xFF120D26),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 35,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 8.0),
                 Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                   alignment: Alignment.center,
                   child: Row(
                     children: [
@@ -67,8 +108,22 @@ class EventDetailScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(event.organiserName),
-                          const Text("Organiser"),
+                          Text(
+                            event.organiserName,
+                            style: GoogleFonts.inter(
+                              color: const Color(0xFF0D0C26),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15,
+                            ),
+                          ),
+                          Text(
+                            "Organiser",
+                            style: GoogleFonts.inter(
+                              color: const Color(0xFF706E8F),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -85,31 +140,43 @@ class EventDetailScreen extends StatelessWidget {
                   subtitle: "${event.venueCity}, ${event.venueCountry}",
                   icon: Icons.location_pin,
                 ),
-                const Text(
-                  "About event",
-                  style: TextStyle(fontSize: 16.0),
+                const SizedBox(height: 8.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "About event",
+                    style: GoogleFonts.inter(
+                      color: const Color(0xFF120D26),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 8.0),
-                // ExpandableText(
-                //   event.description,
-                //   style: const TextStyle(fontSize: 16.0),
-                //   expandText: 'Read more',
-                //   collapseText: 'Read less',
-                //   maxLines: 4,
-                // ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    event.description,
+                    style: GoogleFonts.inter(
+                      color: const Color(0xFF120D26),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
         Container(
-          height: 181,
+          height: 150,
           width: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 Colors.white,
                 Colors.white24,
-                Colors.transparent,
+                Colors.white10,
               ],
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
@@ -120,16 +187,34 @@ class EventDetailScreen extends StatelessWidget {
               height: 58,
               width: 271,
               decoration: BoxDecoration(
-                color: Colors.amber,
+                color: const Color(0xFF5669FF),
                 borderRadius: BorderRadius.circular(18),
               ),
               child: Row(
                 children: [
-                  const Expanded(child: Center(child: Text("BOOK NOW"))),
-                  IconButton.filledTonal(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_forward),
-                  ),
+                  Expanded(
+                      child: Center(
+                          child: Text(
+                    "BOOK NOW",
+                    style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ))),
+                  Container(
+                    height: 40,
+                    width: 40,
+                    margin: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      color: const Color(0xFF3D56F0),
+                    ),
+                    child: const Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                    ),
+                  )
                 ],
               ),
             ),
@@ -155,6 +240,7 @@ class EventTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
       child: Row(
         children: [
           Container(
@@ -172,8 +258,22 @@ class EventTile extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title),
-              Text(subtitle),
+              Text(
+                title,
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF0D0C26),
+                  fontWeight: FontWeight.w400,
+                  fontSize: 15,
+                ),
+              ),
+              Text(
+                subtitle,
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF706E8F),
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                ),
+              ),
             ],
           ),
         ],

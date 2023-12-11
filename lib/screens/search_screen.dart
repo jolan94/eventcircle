@@ -1,8 +1,9 @@
-// screens/search_screen.dart
 import 'package:eventcircle/controllers/event_controller.dart';
 import 'package:eventcircle/screens/widgets/event_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 
 class SearchScreen extends StatelessWidget {
   final EventController eventController = Get.find();
@@ -11,7 +12,14 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search'),
+        title: Text(
+          'Search',
+          style: GoogleFonts.inter(
+            color: const Color(0xFF120D26),
+            fontWeight: FontWeight.w500,
+            fontSize: 24,
+          ),
+        ),
       ),
       body: Column(
         children: [
@@ -23,10 +31,13 @@ class SearchScreen extends StatelessWidget {
                 eventController.searchEvents(searchQuery: value);
               },
               decoration: InputDecoration(
-                hintText: 'Search events...',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                hintText: 'Type event name...',
+                prefixIcon: const Icon(Iconsax.search_normal),
+                border: InputBorder.none,
+                hintStyle: GoogleFonts.inter(
+                  color: const Color(0xFF120D26),
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
                 ),
               ),
             ),
