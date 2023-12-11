@@ -41,7 +41,21 @@ class HomeScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a circular loading indicator while waiting for the data
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+                child: Column(
+              children: [
+                const CircularProgressIndicator(),
+                const SizedBox(height: 12),
+                Text(
+                  "Loading, Please wait...",
+                  style: GoogleFonts.inter(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                  ),
+                )
+              ],
+            ));
           } else if (snapshot.hasError) {
             // Display an error message if there's an error
             return Center(child: Text('Error: ${snapshot.error}'));

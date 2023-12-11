@@ -1,4 +1,3 @@
-// controllers/event_controller.dart
 import 'package:eventcircle/models/event.dart';
 import 'package:eventcircle/services/event_service.dart';
 import 'package:get/get.dart';

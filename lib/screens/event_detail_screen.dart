@@ -23,11 +23,19 @@ class EventDetailScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         actions: [
-          IconButton.filledTonal(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.bookmark,
-              )),
+          Container(
+            height: 45,
+            width: 45,
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.black12,
+            ),
+            child: const Icon(
+              Icons.bookmark,
+              color: Colors.white,
+            ),
+          )
         ],
         leading: IconButton(
             onPressed: () {
@@ -43,7 +51,21 @@ class EventDetailScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a circular loading indicator while waiting for the data
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+                child: Column(
+              children: [
+                const CircularProgressIndicator(),
+                const SizedBox(height: 12),
+                Text(
+                  "Loading, Please wait...",
+                  style: GoogleFonts.inter(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                  ),
+                )
+              ],
+            ));
           } else if (snapshot.hasError) {
             // Display an error message if there's an error
             return Center(child: Text('Error: ${snapshot.error}'));
@@ -171,16 +193,23 @@ class EventDetailScreen extends StatelessWidget {
         Container(
           height: 150,
           width: double.infinity,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.white,
-                Colors.white24,
-                Colors.white10,
+                Colors.white.withOpacity(0.5),
+                Colors.white.withOpacity(0.2),
+                Colors.white.withOpacity(0.05),
+                Colors.transparent,
               ],
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF575C8A).withOpacity(0.06),
+                blurRadius: 35,
+              ),
+            ],
           ),
           child: Center(
             child: Container(
@@ -193,19 +222,21 @@ class EventDetailScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                      child: Center(
-                          child: Text(
-                    "BOOK NOW",
-                    style: GoogleFonts.inter(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                    child: Center(
+                      child: Text(
+                        "BOOK NOW",
+                        style: GoogleFonts.inter(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
-                  ))),
+                  ),
                   Container(
-                    height: 40,
-                    width: 40,
-                    margin: const EdgeInsets.all(8),
+                    height: 30,
+                    width: 30,
+                    margin: const EdgeInsets.only(right: 8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
                       color: const Color(0xFF3D56F0),
@@ -213,6 +244,7 @@ class EventDetailScreen extends StatelessWidget {
                     child: const Icon(
                       Icons.arrow_forward,
                       color: Colors.white,
+                      size: 18,
                     ),
                   )
                 ],
